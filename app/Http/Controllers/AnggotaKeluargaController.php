@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AnggotaKeluarga;
-use Illuminate\Http\RedirectResponse;
+use App\Models\KeluargaKK;
+use App\Models\Warga;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
-class AnggotaKeluargaController extends Controller
+class KeluargaKKController extends Controller
 {
-    public function index(): View
+    public function index()
     {
         try {
             $anggota = AnggotaKeluarga::orderBy('anggota_id', 'desc')->paginate(10);
-
             return view('anggota_keluarga.index', compact('anggota'));
         } catch (\Exception $e) {
             // Fallback jika ada error
             $anggota = collect();
-
             return view('anggota_keluarga.index', compact('anggota'));
         }
     }
@@ -38,29 +35,23 @@ class AnggotaKeluargaController extends Controller
             ]);
 
             AnggotaKeluarga::create($validated);
-
             return redirect()->route('anggota-keluarga.index')->with('success', 'Data anggota keluarga berhasil ditambahkan');
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: '.$e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
-    public function show(AnggotaKeluarga $anggota_keluarga): View
+    public function show($id)
     {
-        try {
-            return view('anggota_keluarga.show', ['item' => $anggota_keluarga]);
-        } catch (\Exception $e) {
-            return redirect()->route('anggota-keluarga.index')->with('error', 'Data tidak ditemukan');
-        }
+        $kk = KeluargaKK::with('kepalaKeluarga', 'anggota.warga')->findOrFail($id);
+        return view('admin.kk.show', compact('kk'));
     }
 
-    public function edit(AnggotaKeluarga $anggota_keluarga): View
+    public function edit($id)
     {
-        try {
-            return view('anggota_keluarga.edit', ['item' => $anggota_keluarga]);
-        } catch (\Exception $e) {
-            return redirect()->route('anggota-keluarga.index')->with('error', 'Data tidak ditemukan');
-        }
+        $kk = KeluargaKK::findOrFail($id);
+        $warga = Warga::orderBy('nama')->get();
+        return view('admin.kk.edit', compact('kk', 'warga'));
     }
 
     public function update(Request $request, AnggotaKeluarga $anggota_keluarga): RedirectResponse
@@ -73,21 +64,21 @@ class AnggotaKeluargaController extends Controller
             ]);
 
             $anggota_keluarga->update($validated);
-
             return redirect()->route('anggota-keluarga.index')->with('success', 'Data anggota keluarga berhasil diperbarui');
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: '.$e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
-    public function destroy(AnggotaKeluarga $anggota_keluarga): RedirectResponse
+    public function destroy($id)
     {
         try {
             $anggota_keluarga->delete();
-
             return redirect()->route('anggota-keluarga.index')->with('success', 'Data anggota keluarga berhasil dihapus');
         } catch (\Exception $e) {
-            return redirect()->route('anggota-keluarga.index')->with('error', 'Terjadi kesalahan: '.$e->getMessage());
+            return redirect()->route('anggota-keluarga.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 }
+
+

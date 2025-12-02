@@ -3,27 +3,37 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Argon Dashboard Tailwind</title>
+    <title>@yield('title', 'Dashboard')</title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets-admin-volt/img/favicon.ico') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="icon" href="{{ asset('assets-admin/img/favicon.png') }}">
 
-    <!-- CSS BARU -->
     @include('layouts.admin.css')
 </head>
 
-<body class="bg-gray-100">
-    <!-- Sidebar -->
-    @include('layouts.admin.sidebar')
+<body class="font-sans min-h-screen bg-[#f8fafd] relative">
 
-    <main class="main-content">
-        @yield('content')
-    </main>
+    <!-- Background Biru -->
+    <div class="absolute w-full left-0 top-0 z-0 h-[260px] md:h-[330px] bg-[#6259ff] rounded-b-3xl overflow-hidden">
+        <img src="{{ asset('assets-admin/img/shapes/wave-up.svg') }}"
+             class="w-full h-full object-cover opacity-40">
+    </div>
 
-    <!-- Footer -->
-    @include('layouts.admin.footer')
+    <div class="flex min-h-screen relative z-10">
+        @include('layouts.admin.sidebar')
 
-    <!-- JS BARU -->
+        <div class="flex-1 flex flex-col">
+            @include('layouts.admin.header')
+
+            <main class="flex-1 p-6 mt-4">
+                @yield('content')
+            </main>
+
+            @include('layouts.admin.footer')
+        </div>
+    </div>
+
     @include('layouts.admin.js')
 </body>
 </html>

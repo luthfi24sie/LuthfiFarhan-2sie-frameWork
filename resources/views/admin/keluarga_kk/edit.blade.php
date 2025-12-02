@@ -1,182 +1,50 @@
-@extends('adminlte::page')
-
-@section('title', 'Edit Data Keluarga KK')
-
-@section('content_header')
-    <h1>Edit Data Keluarga KK</h1>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ url('/') }}">
-                <i class="fas fa-fw fa-home"></i>
-            </a>
-        </li>
-        <li class="breadcrumb-item"><a href="{{ route('keluarga_kk.index') }}">Keluarga KK</a></li>
-        <li class="breadcrumb-item active">Edit</li>
-    </ol>
-@stop
-
+@extends('layouts.admin.app')
+@section('title','Edit Keluarga')
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Edit Data Keluarga</h3>
-                    <p class="card-subtitle mb-0">Ubah data keluarga sesuai kebutuhan</p>
-                </div>
-
-                <form action="{{ route('keluarga_kk.update', $dataKeluarga_kk->kk_id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="kk_nomor">Nomor KK <span class="text-danger">*</span></label>
-                                    <input type="text"
-                                           name="kk_nomor"
-                                           id="kk_nomor"
-                                           class="form-control @error('kk_nomor') is-invalid @enderror"
-                                           value="{{ old('kk_nomor', $dataKeluarga_kk->kk_nomor) }}"
-                                           placeholder="Masukkan Nomor KK"
-                                           required>
-                                    @error('kk_nomor')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="kepala_keluarga_warga_id">ID Kepala Keluarga <span class="text-danger">*</span></label>
-                                    <input type="text"
-                                           name="kepala_keluarga_warga_id"
-                                           id="kepala_keluarga_warga_id"
-                                           class="form-control @error('kepala_keluarga_warga_id') is-invalid @enderror"
-                                           value="{{ old('kepala_keluarga_warga_id', $dataKeluarga_kk->kepala_keluarga_warga_id) }}"
-                                           placeholder="Masukkan ID Kepala Keluarga"
-                                           required>
-                                    @error('kepala_keluarga_warga_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="alamat">Alamat <span class="text-danger">*</span></label>
-                            <textarea name="alamat"
-                                      id="alamat"
-                                      class="form-control @error('alamat') is-invalid @enderror"
-                                      rows="3"
-                                      placeholder="Masukkan Alamat Lengkap"
-                                      required>{{ old('alamat', $dataKeluarga_kk->alamat) }}</textarea>
-                            @error('alamat')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="rt">RT <span class="text-danger">*</span></label>
-                                    <input type="text"
-                                           name="rt"
-                                           id="rt"
-                                           class="form-control @error('rt') is-invalid @enderror"
-                                           value="{{ old('rt', $dataKeluarga_kk->rt) }}"
-                                           placeholder="Contoh: 001"
-                                           required>
-                                    @error('rt')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="rw">RW <span class="text-danger">*</span></label>
-                                    <input type="text"
-                                           name="rw"
-                                           id="rw"
-                                           class="form-control @error('rw') is-invalid @enderror"
-                                           value="{{ old('rw', $dataKeluarga_kk->rw) }}"
-                                           placeholder="Contoh: 002"
-                                           required>
-                                    @error('rw')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Update Data
-                        </button>
-                        <a href="{{ route('keluarga_kk.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-times"></i> Batal
-                        </a>
-                    </div>
-                </form>
-            </div>
-        </div>
+<div class="px-6 py-6">
+    <div class="text-white mb-6">
+        <nav class="text-sm opacity-70">Pages / <span class="font-semibold">Keluarga</span></nav>
+        <h1 class="text-2xl font-bold">Edit Keluarga</h1>
     </div>
-@stop
 
-@section('css')
-    <style>
-        .card-header {
-            border-bottom: 1px solid #dee2e6;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .card-subtitle {
-            font-size: 0.875rem;
-            color: #6c757d;
-        }
-        .text-danger {
-            color: #dc3545;
-        }
-    </style>
-@stop
+    <div class="bg-white p-6 rounded-2xl shadow">
+        <form action="{{ route('keluarga_kk.update', $kk) }}" method="POST">
+            @csrf @method('PUT')
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label>Nomor KK</label>
+                    <input name="kk_nomor" value="{{ old('kk_nomor', $kk->kk_nomor) }}" class="w-full border rounded px-3 py-2" required>
+                </div>
+                <div>
+                    <label>Kepala Keluarga</label>
+                    <select name="kepala_keluarga_warga_id" class="w-full border rounded px-3 py-2">
+                        <option value="">-- Pilih --</option>
+                        @foreach($warga as $w) 
+                            <option value="{{ $w->warga_id }}" {{ $kk->kepala_keluarga_warga_id == $w->warga_id ? 'selected':'' }}>
+                                {{ $w->nama }}
+                            </option> 
+                        @endforeach
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <label>Alamat</label>
+                    <textarea name="alamat" class="w-full border rounded px-3 py-2">{{ old('alamat', $kk->alamat) }}</textarea>
+                </div>
+                <div>
+                    <label>RT</label>
+                    <input name="rt" value="{{ old('rt', $kk->rt) }}" class="w-full border rounded px-3 py-2">
+                </div>
+                <div>
+                    <label>RW</label>
+                    <input name="rw" value="{{ old('rw', $kk->rw) }}" class="w-full border rounded px-3 py-2">
+                </div>
+            </div>
 
-@section('js')
-    <script>
-        $(document).ready(function() {
-            // Validasi input numerik
-            $('#kk_nomor').on('input', function() {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-
-            $('#kepala_keluarga_warga_id').on('input', function() {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-
-            $('#rt, #rw').on('input', function() {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-
-            // Toast untuk notifikasi
-            @if(session('success'))
-                toastr.success('{{ session('success') }}');
-            @endif
-
-            @if($errors->any())
-                toastr.error('Terjadi kesalahan dalam pengisian form.');
-            @endif
-        });
-    </script>
-@stop
+            <div class="mt-4 flex gap-3">
+                <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
+                <a href="{{ route('keluarga_kk.index') }}" class="bg-gray-200 px-4 py-2 rounded">Batal</a>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

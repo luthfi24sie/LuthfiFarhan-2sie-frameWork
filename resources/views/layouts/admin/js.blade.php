@@ -1,8 +1,4 @@
- <!-- Start JS -->
-    <!-- Core -->
-    <script src="{{ asset('assets-admin/vendor/@popperjs/core/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ asset('assets-admin/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-
-    <!-- Volt JS -->
-    <script src="{{ asset('assets-admin/js/volt.js') }}"></script>
-    <!-- End JS -->
+<!-- layouts/admin/js.blade.php -->
+<script src="{{ asset('assets-admin/js/plugins/perfect-scrollbar.min.js') }}"></script>
+<script src="{{ asset('assets-admin/js/plugins/chartjs.min.js') }}"></script>
+<script src="{{ asset('assets-admin/js/plugins/argon-dashboard-tailwind.min.js') }}"></script>
