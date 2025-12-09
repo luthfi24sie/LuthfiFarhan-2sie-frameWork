@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+<<<<<<< HEAD
 /**
  * Wrapper agar perintah `php artisan ...` bisa dijalankan
  * langsung dari folder luar (Project-Framework-2SIE-Kelompok10).
@@ -16,3 +17,20 @@ if (! is_dir($projectPath) || ! file_exists($projectPath . DIRECTORY_SEPARATOR .
 chdir($projectPath);
 require $projectPath . DIRECTORY_SEPARATOR . 'artisan';
 
+=======
+use Illuminate\Foundation\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+
+define('LARAVEL_START', microtime(true));
+
+// Register the Composer autoloader...
+require __DIR__.'/vendor/autoload.php';
+
+// Bootstrap Laravel and handle the command...
+/** @var Application $app */
+$app = require_once __DIR__.'/bootstrap/app.php';
+
+$status = $app->handleCommand(new ArgvInput);
+
+exit($status);
+>>>>>>> 2397e1571264e2ef011a355a4b7bc4ae0d01ef4e

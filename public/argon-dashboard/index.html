@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Argon Dashboard Tailwind – Mirip</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            argon: '#5E72E4'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-gray-100">
+  <div class="flex">
+    <aside id="sidebar" class="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-white shadow-lg rounded-r-2xl z-20">
+      <div class="w-full h-full flex flex-col p-4">
+        <div class="flex items-center gap-3 px-2 py-3">
+          <div class="w-10 h-10 rounded-lg bg-argon/10 flex items-center justify-center text-argon"><i class="fa-solid fa-layer-group"></i></div>
+          <div class="text-sm font-semibold">Argon Dashboard 2</div>
+        </div>
+        <nav class="mt-4 flex-1">
+          <ul class="space-y-1">
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl bg-argon/10 text-argon font-semibold" href="#">
+                <span class="w-8 h-8 rounded-lg bg-argon/10 flex items-center justify-center"><i class="fa-solid fa-chart-line"></i></span>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="/warga">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-id-card"></i></span>
+                <span>Data Warga</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="#">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-table"></i></span>
+                <span>Tables</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="#">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-credit-card"></i></span>
+                <span>Billing</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="#">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-vr-cardboard"></i></span>
+                <span>Virtual Reality</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="#">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-align-right"></i></span>
+                <span>RTL</span>
+              </a>
+            </li>
+          </ul>
+          <div class="mt-6 px-4 text-xs font-semibold text-gray-400">ACCOUNT PAGES</div>
+          <ul class="mt-2 space-y-1">
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="/guest/users">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-users"></i></span>
+                <span>Users</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="/guest/keluarga-kk">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-people-roof"></i></span>
+                <span>Keluarga KK</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="#">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-user"></i></span>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="#">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-right-to-bracket"></i></span>
+                <span>Sign In</span>
+              </a>
+            </li>
+            <li>
+              <a class="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-gray-100 transition" href="#">
+                <span class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center"><i class="fa-solid fa-user-plus"></i></span>
+                <span>Sign Up</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="mt-auto text-[10px] text-gray-400 px-2">© 2025, made with by Creative Tim for a better web.</div>
+      </div>
+    </aside>
+
+    <main class="flex-1 ml-0 md:ml-64">
+      <header class="sticky top-0 bg-white/80 backdrop-blur z-10">
+        <div class="px-4 md:px-8 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <button id="hamburger" class="md:hidden w-10 h-10 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center hover:bg-gray-200 transition"><i class="fa-solid fa-bars"></i></button>
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+              <span>Pages</span>
+              <i class="fa-solid fa-angle-right text-gray-400"></i>
+              <span class="font-semibold text-gray-700">Dashboard</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="hidden md:flex items-center bg-white shadow-sm rounded-full px-3 py-1 w-64">
+              <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+              <input type="text" placeholder="Type here..." class="ml-2 w-full outline-none text-sm text-gray-700" />
+            </div>
+            <a href="#" class="hidden md:inline text-sm text-argon hover:underline">Sign In</a>
+            <button id="hamburger-right" class="w-10 h-10 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center hover:bg-gray-200 transition"><i class="fa-solid fa-bars"></i></button>
+            <button class="w-9 h-9 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center hover:ring-2 hover:ring-argon transition">
+              <i class="fa-solid fa-user text-gray-600"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+      <div id="overlay" class="fixed inset-0 bg-black/30 z-10 hidden md:hidden"></div>
+
+      <section class="px-4 md:px-8 mt-4">
+        <div class="w-full bg-gradient-to-r from-[#5E72E4] to-[#7f97ff] rounded-2xl h-40 shadow-md"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 -mt-16">
+          <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition hover:-translate-y-0.5">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-[#5E72E4] text-white flex items-center justify-center"><i class="fa-solid fa-wallet"></i></div>
+              <div class="flex-1">
+                <div class="text-xs font-semibold text-gray-500">TODAY'S MONEY</div>
+                <div class="text-2xl font-bold text-gray-800">$53,000</div>
+                <div class="text-xs text-emerald-500 font-semibold">+55% since yesterday</div>
+              </div>
+              <i class="fa-solid fa-ellipsis text-gray-400"></i>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition hover:-translate-y-0.5">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-[#3B82F6] text-white flex items-center justify-center"><i class="fa-solid fa-users"></i></div>
+              <div class="flex-1">
+                <div class="text-xs font-semibold text-gray-500">TODAY'S USERS</div>
+                <div class="text-2xl font-bold text-gray-800">2,300</div>
+                <div class="text-xs text-emerald-500 font-semibold">+3% since last week</div>
+              </div>
+              <i class="fa-solid fa-ellipsis text-gray-400"></i>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition hover:-translate-y-0.5">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-[#EF4444] text-white flex items-center justify-center"><i class="fa-solid fa-user-plus"></i></div>
+              <div class="flex-1">
+                <div class="text-xs font-semibold text-gray-500">NEW CLIENTS</div>
+                <div class="text-2xl font-bold text-gray-800">+3,462</div>
+                <div class="text-xs text-rose-500 font-semibold">-2% since last quarter</div>
+              </div>
+              <i class="fa-solid fa-ellipsis text-gray-400"></i>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition hover:-translate-y-0.5">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-[#10B981] text-white flex items-center justify-center"><i class="fa-solid fa-bag-shopping"></i></div>
+              <div class="flex-1">
+                <div class="text-xs font-semibold text-gray-500">SALES</div>
+                <div class="text-2xl font-bold text-gray-800">$103,430</div>
+                <div class="text-xs text-emerald-500 font-semibold">+5% than last month</div>
+              </div>
+              <i class="fa-solid fa-ellipsis text-gray-400"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-6">
+          <div class="xl:col-span-2 bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm font-semibold text-gray-700">Sales Overview</div>
+                <div class="text-xs text-gray-400">4% more in 2021</div>
+              </div>
+              <div class="text-gray-400"><i class="fa-solid fa-ellipsis"></i></div>
+            </div>
+            <div class="mt-4">
+              <canvas id="salesChart" height="120"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="relative">
+              <img src="../assets-admin-volt/img/curved-images/curved11.jpg" class="w-full h-56 object-cover" alt="Get started with Argon">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+              <div class="absolute bottom-3 left-4 right-4">
+                <div class="text-white text-lg font-semibold">Get started with Argon</div>
+                <div class="text-white/90 text-sm">There's nothing I really wanted to do in life that I wasn't able to get good at.</div>
+              </div>
+            </div>
+            <div class="p-4 flex items-center justify-between">
+              <button class="px-4 py-2 bg-argon text-white rounded-lg shadow hover:shadow-md transition">Start now</button>
+              <div class="text-gray-400"><i class="fa-solid fa-ellipsis"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-6">
+          <div class="xl:col-span-2 space-y-6">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold text-gray-700">Data Warga</div>
+                <div class="flex items-center gap-2">
+                  <a href="/warga/create" class="px-3 py-1 text-xs rounded-lg bg-argon text-white shadow hover:shadow-md transition">Create</a>
+                  <a href="/warga" class="px-3 py-1 text-xs rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition">Manage</a>
+                </div>
+              </div>
+              <div class="mt-4 overflow-x-auto">
+                <table class="min-w-full">
+                  <thead>
+                    <tr class="text-xs text-gray-400">
+                      <th class="text-left font-semibold py-2">Nama</th>
+                      <th class="text-left font-semibold py-2">Alamat</th>
+                      <th class="text-left font-semibold py-2">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm text-gray-700">
+                    <tr class="border-t">
+                      <td class="py-3">Contoh Warga</td>
+                      <td class="py-3">Jl. Contoh No. 1</td>
+                      <td class="py-3"><a href="/warga" class="text-argon hover:underline">Kelola</a></td>
+                    </tr>
+                    <tr class="border-t">
+                      <td class="py-3">Contoh Warga 2</td>
+                      <td class="py-3">Jl. Contoh No. 2</td>
+                      <td class="py-3"><a href="/warga" class="text-argon hover:underline">Kelola</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold text-gray-700">Keluarga KK</div>
+                <div class="flex items-center gap-2">
+                  <a href="/guest/keluarga-kk/create" class="px-3 py-1 text-xs rounded-lg bg-argon text-white shadow hover:shadow-md transition">Create</a>
+                  <a href="/guest/keluarga-kk" class="px-3 py-1 text-xs rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition">Manage</a>
+                </div>
+              </div>
+              <div class="mt-4 overflow-x-auto">
+                <table class="min-w-full">
+                  <thead>
+                    <tr class="text-xs text-gray-400">
+                      <th class="text-left font-semibold py-2">Nomor KK</th>
+                      <th class="text-left font-semibold py-2">Alamat</th>
+                      <th class="text-left font-semibold py-2">RT/RW</th>
+                      <th class="text-left font-semibold py-2">Kepala</th>
+                      <th class="text-left font-semibold py-2">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm text-gray-700">
+                    <tr class="border-t">
+                      <td class="py-3">0000-0001</td>
+                      <td class="py-3">Jl. Argon No. 10</td>
+                      <td class="py-3">01/01</td>
+                      <td class="py-3">—</td>
+                      <td class="py-3 space-x-2">
+                        <a href="/guest/keluarga-kk/create" class="text-argon hover:underline">Create</a>
+                        <a href="/guest/keluarga-kk" class="text-gray-700 hover:underline">Manage</a>
+                      </td>
+                    </tr>
+                    <tr class="border-t">
+                      <td class="py-3">0000-0002</td>
+                      <td class="py-3">Jl. Argon No. 11</td>
+                      <td class="py-3">02/03</td>
+                      <td class="py-3">—</td>
+                      <td class="py-3 space-x-2">
+                        <a href="/guest/keluarga-kk/create" class="text-argon hover:underline">Create</a>
+                        <a href="/guest/keluarga-kk" class="text-gray-700 hover:underline">Manage</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold text-gray-700">Categories</div>
+              <div class="text-gray-400"><i class="fa-solid fa-ellipsis"></i></div>
+            </div>
+            <ul class="mt-4 space-y-3">
+              <li class="flex items-center justify-between px-2 py-2 rounded-lg hover:bg-gray-50 transition">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-argon/10 text-argon flex items-center justify-center"><i class="fa-solid fa-mobile-screen-button"></i></span>
+                  <div>
+                    <div class="text-sm font-semibold text-gray-700">Devices</div>
+                    <div class="text-xs text-gray-400">250 in stock, 346 sold</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-angle-right text-gray-400"></i>
+              </li>
+              <li class="flex items-center justify-between px-2 py-2 rounded-lg hover:bg-gray-50 transition">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-500 flex items-center justify-center"><i class="fa-solid fa-ticket"></i></span>
+                  <div>
+                    <div class="text-sm font-semibold text-gray-700">Tickets</div>
+                    <div class="text-xs text-gray-400">123 closed, 15 open</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-angle-right text-gray-400"></i>
+              </li>
+              <li class="flex items-center justify-between px-2 py-2 rounded-lg hover:bg-gray-50 transition">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-rose-100 text-rose-500 flex items-center justify-center"><i class="fa-solid fa-bug"></i></span>
+                  <div>
+                    <div class="text-sm font-semibold text-gray-700">Error logs</div>
+                    <div class="text-xs text-gray-400">1.2k issues, 40 closed</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-angle-right text-gray-400"></i>
+              </li>
+              <li class="flex items-center justify-between px-2 py-2 rounded-lg hover:bg-gray-50 transition">
+                <div class="flex items-center gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center"><i class="fa-solid fa-face-smile"></i></span>
+                  <div>
+                    <div class="text-sm font-semibold text-gray-700">Happy users</div>
+                    <div class="text-xs text-gray-400">+80</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-angle-right text-gray-400"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 text-xs text-gray-400">Distributed by ThemeWagon</div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="./chart.js"></script>
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const btn = document.getElementById('hamburger');
+    const btnRight = document.getElementById('hamburger-right');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.add('flex');
+        overlay.classList.remove('hidden');
+      });
+    }
+    if (btnRight) {
+      btnRight.addEventListener('click', () => {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.add('flex');
+        overlay.classList.remove('hidden');
+      });
+    }
+    if (overlay) {
+      overlay.addEventListener('click', () => {
+        sidebar.classList.add('hidden');
+        sidebar.classList.remove('flex');
+        overlay.classList.add('hidden');
+      });
+    }
+  </script>
+</body>
+</html>
+
