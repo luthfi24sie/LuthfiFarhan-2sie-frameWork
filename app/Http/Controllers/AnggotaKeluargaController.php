@@ -2,83 +2,104 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KeluargaKK;
+use App\Models\AnggotaKeluarga;
+use App\Models\Keluarga_kk;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 
-class KeluargaKKController extends Controller
+class AnggotaKeluargaController extends Controller
 {
-    public function index()
+  public function index(Request $request)
     {
-        try {
-            $anggota = AnggotaKeluarga::orderBy('anggota_id', 'desc')->paginate(10);
-            return view('anggota_keluarga.index', compact('anggota'));
-        } catch (\Exception $e) {
-            // Fallback jika ada error
-            $anggota = collect();
-            return view('anggota_keluarga.index', compact('anggota'));
+        $query = AnggotaKeluarga::with(['kk', 'warga']);
+
+        // 🔍 FILTER NAMA WARGA
+        if ($request->filled('nama')) {
+            $query->whereHas('warga', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->nama . '%');
+            });
         }
-    }
 
-    public function create(): View
-    {
-        return view('anggota_keluarga.create');
-    }
-
-    public function store(Request $request): RedirectResponse
-    {
-        try {
-            $validated = $request->validate([
-                'kk_id' => ['required', 'integer', 'min:1'],
-                'warga_id' => ['required', 'integer', 'min:1'],
-                'hubungan' => ['required', 'string', 'max:50'],
-            ]);
-
-            AnggotaKeluarga::create($validated);
-            return redirect()->route('anggota-keluarga.index')->with('success', 'Data anggota keluarga berhasil ditambahkan');
-        } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        // 🏠 FILTER KK
+        if ($request->filled('kk_id')) {
+            $query->where('kk_id', $request->kk_id);
         }
+
+        $anggota = $query->latest()
+                        ->paginate(20)
+                        ->withQueryString();
+
+        // data KK untuk dropdown filter
+        $listKK = Keluarga_kk::orderBy('kk_nomor')->get();
+
+        return view('admin.anggota_keluarga.index', compact('anggota', 'listKK'));
     }
 
-    public function show($id)
+
+    public function create()
     {
-        $kk = KeluargaKK::with('kepalaKeluarga', 'anggota.warga')->findOrFail($id);
-        return view('admin.kk.show', compact('kk'));
+        $kk = Keluarga_kk::orderBy('kk_nomor')->get();
+        $warga = Warga::orderBy('nama')->get();
+
+        return view('admin.anggota_keluarga.create', compact('kk', 'warga'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'kk_id'     => 'required|exists:keluarga_kk,kk_id',
+            'warga_id'  => 'required|exists:warga,warga_id',
+            'hubungan'  => 'required|string|max:50',
+        ]);
+
+        AnggotaKeluarga::create($request->all());
+
+        return redirect()
+            ->route('anggota.index')
+            ->with('success', 'Anggota keluarga berhasil ditambahkan');
     }
 
     public function edit($id)
     {
-        $kk = KeluargaKK::findOrFail($id);
+        $anggota = AnggotaKeluarga::findOrFail($id);
+        $kk = Keluarga_kk::orderBy('kk_nomor')->get();
         $warga = Warga::orderBy('nama')->get();
-        return view('admin.kk.edit', compact('kk', 'warga'));
+
+        return view('admin.anggota_keluarga.edit', compact('anggota', 'kk', 'warga'));
     }
 
-    public function update(Request $request, AnggotaKeluarga $anggota_keluarga): RedirectResponse
+    public function update(Request $request, $id)
     {
-        try {
-            $validated = $request->validate([
-                'kk_id' => ['required', 'integer', 'min:1'],
-                'warga_id' => ['required', 'integer', 'min:1'],
-                'hubungan' => ['required', 'string', 'max:50'],
-            ]);
+        $anggota = AnggotaKeluarga::findOrFail($id);
 
-            $anggota_keluarga->update($validated);
-            return redirect()->route('anggota-keluarga.index')->with('success', 'Data anggota keluarga berhasil diperbarui');
-        } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-        }
+        $request->validate([
+            'kk_id'     => 'required|exists:keluarga_kk,kk_id',
+            'warga_id'  => 'required|exists:warga,warga_id',
+            'hubungan'  => 'required|string|max:50',
+        ]);
+
+        $anggota->update($request->all());
+
+        return redirect()
+            ->route('anggota.index')
+            ->with('success', 'Data anggota keluarga berhasil diperbarui');
     }
+
+    public function show($id)
+    {
+        $anggota = AnggotaKeluarga::with(['kk.kepalaKeluarga', 'warga'])
+            ->findOrFail($id);
+
+        return view('admin.anggota_keluarga.show', compact('anggota'));
+    }
+
 
     public function destroy($id)
     {
-        try {
-            $anggota_keluarga->delete();
-            return redirect()->route('anggota-keluarga.index')->with('success', 'Data anggota keluarga berhasil dihapus');
-        } catch (\Exception $e) {
-            return redirect()->route('anggota-keluarga.index')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-        }
+        AnggotaKeluarga::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('anggota.index')
+            ->with('success', 'Anggota keluarga berhasil dihapus');
     }
 }
-
-

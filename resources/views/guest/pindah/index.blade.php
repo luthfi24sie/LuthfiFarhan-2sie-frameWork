@@ -1,0 +1,115 @@
+@extends('layouts.guest')
+
+@section('title', 'Data Pindah')
+@section('page-title', 'Data Pindah')
+
+@section('content')
+    <section class="bg-[#1A1A23] rounded-3xl border border-white/5 overflow-hidden animate-fade-in-up">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-6 py-6 border-b border-white/5 bg-[#12121A]/50 backdrop-blur-xl">
+            <div>
+                <p class="text-xs font-bold uppercase text-purple-400 tracking-wider mb-1">Peristiwa</p>
+                <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-truck-moving text-purple-500"></i> Data Pindah
+                </h3>
+                <p class="text-sm text-gray-400 mt-1">Catatan pindah dan bukti dokumen.</p>
+            </div>
+            
+            <form method="GET" class="flex flex-col sm:flex-row gap-3">
+                <div class="flex items-center w-full sm:w-64 bg-[#0B0B0F] rounded-xl px-4 py-2.5 border border-white/10 focus-within:border-purple-500/50 transition-colors">
+                    <i class="fa-solid fa-magnifying-glass text-gray-500 mr-3"></i>
+                    <input type="text" name="q" value="{{ $search }}" class="flex-1 bg-transparent text-sm text-white placeholder-gray-600 focus:outline-none" placeholder="Cari nama/alamat...">
+                </div>
+                <input type="text" name="alamat" value="{{ $alamat }}" class="w-full sm:w-40 bg-[#0B0B0F] rounded-xl px-4 py-2.5 border border-white/10 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors" placeholder="Alamat Tujuan">
+                <input type="text" name="alasan" value="{{ $alasan }}" class="w-full sm:w-40 bg-[#0B0B0F] rounded-xl px-4 py-2.5 border border-white/10 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors" placeholder="Alasan">
+                <input type="date" name="tgl" value="{{ $tgl }}" class="w-full sm:w-40 bg-[#0B0B0F] rounded-xl px-4 py-2.5 border border-white/10 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors">
+                <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white text-sm font-bold shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 transition-all hover:-translate-y-0.5">
+                    Cari
+                </button>
+            </form>
+        </div>
+
+        @if(session('success'))
+            <div class="mx-6 mt-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center gap-3">
+                <i class="fa-solid fa-circle-check"></i>
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <div class="p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @forelse ($pindah as $item)
+                    @php
+                        $media = optional($item->media->sortBy('sort_order')->first());
+                        $fileUrl = $media->file_url;
+                        $isImage = $media->mime_type && str_starts_with($media->mime_type, 'image/');
+                    @endphp
+                    <div class="group bg-[#0B0B0F] rounded-3xl border border-white/5 overflow-hidden hover:border-purple-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10">
+                        <div class="p-6">
+                            <div class="flex items-start gap-4 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-[#1A1A23] border border-white/10 flex items-center justify-center overflow-hidden flex-shrink-0 relative group-hover:border-purple-500/50 transition-colors">
+                                    @if($fileUrl)
+                                        @if($isImage)
+                                            <img src="{{ asset('storage/'.$fileUrl) }}" alt="" class="w-full h-full object-cover">
+                                        @else
+                                            <a href="{{ asset('storage/'.$fileUrl) }}" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors">
+                                                <i class="fa-solid fa-file-lines text-2xl"></i>
+                                            </a>
+                                        @endif
+                                    @else
+                                        <i class="fa-solid fa-truck-moving text-2xl text-gray-600"></i>
+                                    @endif
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">{{ $item->warga->nama ?? '-' }}</h3>
+                                    <p class="text-xs font-mono text-purple-400 bg-purple-500/10 px-2 py-1 rounded-lg inline-block border border-purple-500/20">
+                                        #{{ $item->pindah_id }}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between text-sm border-b border-white/5 pb-2">
+                                    <span class="text-gray-500">Tanggal</span>
+                                    <span class="text-gray-300 font-medium">{{ $item->tgl_pindah }}</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm border-b border-white/5 pb-2">
+                                    <span class="text-gray-500">Alamat Tujuan</span>
+                                    <span class="text-gray-300 text-right max-w-[60%] truncate">{{ $item->alamat_tujuan }}</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm border-b border-white/5 pb-2">
+                                    <span class="text-gray-500">Alasan</span>
+                                    <span class="text-gray-300">{{ $item->alasan }}</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm pt-1">
+                                    <span class="text-gray-500">No Surat</span>
+                                    <span class="text-gray-300 font-mono">{{ $item->no_surat }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="px-6 py-4 bg-[#12121A] border-t border-white/5 flex justify-between items-center">
+                            <span class="text-xs text-gray-500">
+                                <i class="fa-solid fa-clock mr-1"></i> Update: {{ $item->updated_at ? $item->updated_at->diffForHumans() : '-' }}
+                            </span>
+                            <a href="{{ route('guest.pindah.show', $item->pindah_id) }}" class="text-sm font-medium text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors">
+                                Detail <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-span-full py-12 text-center">
+                        <div class="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-folder-open text-3xl text-gray-600"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">Belum ada data</h3>
+                        <p class="text-gray-500">Data pindah belum tersedia saat ini.</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <div class="px-6 py-4 border-t border-white/5 bg-[#12121A]">
+            {{ $pindah->links('pagination::tailwind') }}
+        </div>
+    </section>
+@endsection

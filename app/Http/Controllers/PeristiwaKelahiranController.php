@@ -8,11 +8,29 @@ use Illuminate\Http\Request;
 
 class PeristiwaKelahiranController extends Controller
 {
-    public function index()
+   public function index(Request $request)
     {
-        $data = PeristiwaKelahiran::with('warga')->paginate(20);
+        $query = PeristiwaKelahiran::with('warga');
+
+        // 🔍 FILTER NAMA WARGA
+        if ($request->filled('nama')) {
+            $query->whereHas('warga', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->nama . '%');
+            });
+        }
+
+        // 📄 FILTER NO AKTA
+        if ($request->filled('no_akta')) {
+            $query->where('no_akta', 'like', '%' . $request->no_akta . '%');
+        }
+
+        $data = $query->latest()
+                    ->paginate(20)
+                    ->withQueryString();
+
         return view('admin.peristiwa_kelahiran.index', compact('data'));
     }
+
 
     public function create()
     {
@@ -30,7 +48,8 @@ class PeristiwaKelahiranController extends Controller
 
         PeristiwaKelahiran::create($request->all());
 
-        return redirect()->route('admin.peristiwa_kelahiran.index')->with('success', 'Data kelahiran dicatat.');
+      return redirect()->route('peristiwa_kelahiran.index')
+    ->with('success', 'Data kelahiran dicatat.');
     }
 
     public function show($id)

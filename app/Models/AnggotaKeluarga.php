@@ -7,10 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AnggotaKeluarga extends Model
 {
     protected $table = 'anggota_keluarga';
-
     protected $primaryKey = 'anggota_id';
-    public $incrementing = true;
-    public $timestamps = true;
 
     protected $fillable = [
         'kk_id',
@@ -20,11 +17,16 @@ class AnggotaKeluarga extends Model
 
     public function kk()
     {
-        return $this->belongsTo(KeluargaKK::class, 'kk_id');
+        return $this->belongsTo(Keluarga_kk::class, 'kk_id');
     }
 
     public function warga()
     {
         return $this->belongsTo(Warga::class, 'warga_id');
+    }
+
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'ref', 'ref_table', 'ref_id');
     }
 }

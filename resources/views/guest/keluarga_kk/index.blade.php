@@ -4,118 +4,132 @@
 @section('page-title', 'Data Keluarga KK')
 
 @section('content')
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <article class="bg-white rounded-3xl shadow-lg p-6 border border-slate-100">
-            <p class="text-xs uppercase text-slate-400">Total KK</p>
-            <div class="flex items-center justify-between mt-2">
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-up mb-8">
+        <article class="bg-[#1A1A23] rounded-3xl border border-white/5 p-6 relative overflow-hidden group hover:border-purple-500/30 transition-all duration-300">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+            <p class="text-xs font-bold uppercase text-gray-500 tracking-wider">Total KK</p>
+            <div class="flex items-center justify-between mt-4">
                 <div>
-                    <p class="text-3xl font-semibold text-slate-800">{{ $totalKk }}</p>
-                    <p class="text-sm text-slate-500 mt-1">Keseluruhan data keluarga</p>
+                    <p class="text-4xl font-bold text-white">{{ $totalKk }}</p>
+                    <p class="text-sm text-gray-400 mt-1">Keseluruhan data keluarga</p>
                 </div>
-                <span class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl">
-                    <i class="ni ni-collection"></i>
+                <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 text-purple-400 flex items-center justify-center text-2xl border border-white/5 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fa-solid fa-users"></i>
                 </span>
             </div>
         </article>
-        <article class="bg-white rounded-3xl shadow-lg p-6 border border-slate-100">
-            <p class="text-xs uppercase text-slate-400">Kepala Terdata</p>
-            <div class="flex items-center justify-between mt-2">
+        <article class="bg-[#1A1A23] rounded-3xl border border-white/5 p-6 relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-300">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+            <p class="text-xs font-bold uppercase text-gray-500 tracking-wider">Kepala Terdata</p>
+            <div class="flex items-center justify-between mt-4">
                 <div>
-                    <p class="text-3xl font-semibold text-slate-800">{{ $kepalaTerisi }}</p>
-                    <p class="text-sm text-slate-500 mt-1">KK memiliki kepala keluarga</p>
+                    <p class="text-4xl font-bold text-white">{{ $kepalaTerisi }}</p>
+                    <p class="text-sm text-gray-400 mt-1">KK memiliki kepala keluarga</p>
                 </div>
-                <span class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-500 flex items-center justify-center text-2xl">
-                    <i class="ni ni-single-02"></i>
+                <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 text-emerald-400 flex items-center justify-center text-2xl border border-white/5 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fa-solid fa-user-check"></i>
                 </span>
             </div>
         </article>
-        <article class="bg-gradient-to-br from-blue-600 to-cyan-400 rounded-3xl p-6 shadow-xl text-white">
-            <p class="text-sm uppercase text-white/80">Tambah Data</p>
-            <p class="text-lg font-semibold mt-1">Lengkapi KK baru dengan validasi otomatis.</p>
-            <a href="{{ route('guest.keluarga-kk.create') }}" class="mt-4 inline-flex items-center gap-2 bg-white text-blue-600 font-semibold px-5 py-3 rounded-2xl shadow-lg">
-                <i class="ni ni-fat-add text-lg"></i> Tambah KK
-            </a>
+        <article class="bg-gradient-to-br from-purple-600 to-blue-600 rounded-3xl p-6 relative overflow-hidden shadow-lg shadow-purple-500/20">
+            <div class="absolute top-0 right-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+            <div class="relative z-10 text-white">
+                <h3 class="text-xl font-bold mb-2">Informasi</h3>
+                <p class="text-sm text-purple-100 leading-relaxed">
+                    Data Keluarga KK mencakup informasi detail mengenai kartu keluarga, alamat domisili, dan kepala keluarga yang terdaftar.
+                </p>
+            </div>
         </article>
     </section>
 
-    <section class="mt-8 bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-6 py-6 border-b border-slate-100">
+    <section class="bg-[#1A1A23] rounded-3xl border border-white/5 overflow-hidden animate-fade-in-up delay-100">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-6 py-6 border-b border-white/5 bg-[#12121A]/50 backdrop-blur-xl">
             <div>
-                <p class="text-xs uppercase text-slate-400 tracking-wide">Daftar KK</p>
-                <h3 class="text-2xl font-semibold text-slate-800">Monitoring Data Keluarga</h3>
-                <p class="text-sm text-slate-500">Menampilkan {{ $keluarga->count() }} dari total {{ $keluarga->total() }} data.</p>
+                <p class="text-xs font-bold uppercase text-purple-400 tracking-wider mb-1">Daftar KK</p>
+                <h3 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-file-invoice text-purple-500"></i> Monitoring Data Keluarga
+                </h3>
+                <p class="text-sm text-gray-400 mt-1">Menampilkan {{ $keluarga->count() }} dari total {{ $keluarga->total() }} data.</p>
             </div>
-            <form method="GET" class="flex items-center gap-3">
-                <div class="flex items-center w-64 bg-slate-50 rounded-2xl px-3 py-2 border border-transparent focus-within:border-blue-500">
-                    <i class="ni ni-zoom-split-in text-slate-400"></i>
-                    <input type="text" name="q" value="{{ $search }}" class="flex-1 bg-transparent text-sm text-slate-600 focus:outline-none px-2" placeholder="Cari nomor KK / alamat / kepala">
+            
+            <form method="GET" class="flex flex-col sm:flex-row gap-3">
+                <div class="flex items-center w-full sm:w-64 bg-[#0B0B0F] rounded-xl px-4 py-2.5 border border-white/10 focus-within:border-purple-500/50 transition-colors">
+                    <i class="fa-solid fa-magnifying-glass text-gray-500 mr-3"></i>
+                    <input type="text" name="q" value="{{ $search }}" class="flex-1 bg-transparent text-sm text-white placeholder-gray-600 focus:outline-none" placeholder="Cari nomor KK / alamat...">
                 </div>
-                <button type="submit" class="px-4 py-2 rounded-2xl bg-blue-600 text-white text-sm font-semibold shadow-lg shadow-blue-600/20">
+                <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white text-sm font-bold shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 transition-all hover:-translate-y-0.5">
                     Cari
                 </button>
             </form>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-slate-100">
-                <thead class="bg-slate-50 text-xs font-semibold uppercase text-slate-500">
-                <tr>
-                    <th class="px-6 py-3 text-left">#</th>
-                    <th class="px-6 py-3 text-left">Nomor KK</th>
-                    <th class="px-6 py-3 text-left">Kepala Keluarga</th>
-                    <th class="px-6 py-3 text-left">Alamat</th>
-                    <th class="px-6 py-3 text-left">RT/RW</th>
-                    <th class="px-6 py-3 text-right">Aksi</th>
-                </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100 text-sm text-slate-600">
+        @if(session('success'))
+            <div class="mx-6 mt-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center gap-3">
+                <i class="fa-solid fa-circle-check"></i>
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <div class="p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($keluarga as $item)
-                    <tr class="hover:bg-slate-50/70">
-                        <td class="px-6 py-4 font-semibold text-slate-400">{{ $keluarga->firstItem() + $loop->index }}</td>
-                        <td class="px-6 py-4 font-semibold text-slate-800">{{ $item->kk_nomor }}</td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full {{ $item->kepalaKeluarga ? 'bg-emerald-500' : 'bg-amber-400' }}"></span>
-                                {{ $item->kepalaKeluarga->nama ?? 'Belum diatur' }}
+                    @php
+                        $media = $item->kepalaKeluarga ? $item->kepalaKeluarga->media : collect();
+                        $photo = optional($media->sortBy('sort_order')->first())->file_url;
+                    @endphp
+                    <div class="group bg-[#0B0B0F] rounded-3xl border border-white/5 overflow-hidden hover:border-purple-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10">
+                        <div class="p-6">
+                            <div class="flex items-start gap-4 mb-6">
+                                <div class="w-16 h-16 rounded-2xl bg-[#1A1A23] border border-white/10 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                    @if($photo)
+                                        <img src="{{ asset('storage/'.$photo) }}" alt="" class="w-full h-full object-cover">
+                                    @else
+                                        <i class="fa-solid fa-users text-2xl text-gray-600"></i>
+                                    @endif
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">{{ $item->kepalaKeluarga->nama ?? 'Belum diatur' }}</h3>
+                                    <p class="text-xs font-mono text-purple-400 bg-purple-500/10 px-2 py-1 rounded-lg inline-block border border-purple-500/20">
+                                        #{{ $item->kk_nomor }}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between text-sm border-b border-white/5 pb-2">
+                                    <span class="text-gray-500">RT / RW</span>
+                                    <span class="text-gray-300 font-mono">{{ $item->rt ?? '-' }} / {{ $item->rw ?? '-' }}</span>
+                                </div>
+                                <div class="flex items-start justify-between text-sm pt-1">
+                                    <span class="text-gray-500">Alamat</span>
+                                    <span class="text-gray-300 text-right max-w-[60%]">{{ $item->alamat }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="px-6 py-4 bg-[#12121A] border-t border-white/5 flex justify-between items-center">
+                            <span class="text-xs text-gray-500">
+                                <i class="fa-solid fa-clock mr-1"></i> Update: {{ $item->updated_at ? $item->updated_at->diffForHumans() : '-' }}
                             </span>
-                        </td>
-                        <td class="px-6 py-4">{{ $item->alamat }}</td>
-                        <td class="px-6 py-4">{{ $item->rt ?? '-' }}/{{ $item->rw ?? '-' }}</td>
-                        <td class="px-6 py-4 text-right space-x-2">
-                            <a href="{{ route('guest.keluarga-kk.edit', $item) }}" class="inline-flex items-center justify-center w-9 h-9 rounded-2xl border border-blue-200 text-blue-600 hover:bg-blue-50">
-                                <i class="ni ni-ruler-pencil"></i>
+                            <a href="{{ route('guest.keluarga-kk.show', $item->kk_id) }}" class="text-sm font-medium text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors">
+                                Detail <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
-                            <form action="{{ route('guest.keluarga-kk.destroy', $item) }}" method="POST" class="inline-block" onsubmit="return confirmDelete(this)">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="inline-flex items-center justify-center w-9 h-9 rounded-2xl border border-rose-200 text-rose-600 hover:bg-rose-50">
-                                    <i class="ni ni-fat-remove"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                 @empty
-                    <tr>
-                        <td colspan="6" class="px-6 py-10 text-center text-slate-400">
-                            Belum ada data keluarga. Klik tombol tambah di atas untuk memulai.
-                        </td>
-                    </tr>
+                    <div class="col-span-full py-12 text-center">
+                        <div class="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-folder-open text-3xl text-gray-600"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">Belum ada data</h3>
+                        <p class="text-gray-500">Data keluarga belum tersedia saat ini.</p>
+                    </div>
                 @endforelse
-                </tbody>
-            </table>
+            </div>
         </div>
 
-        <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 rounded-b-3xl">
+        <div class="px-6 py-4 border-t border-white/5 bg-[#12121A]">
             {{ $keluarga->links('pagination::tailwind') }}
         </div>
     </section>
 @endsection
-
-@push('scripts')
-    <script>
-        function confirmDelete(form) {
-            return confirm('Hapus data KK ini?');
-        }
-    </script>
-@endpush
-

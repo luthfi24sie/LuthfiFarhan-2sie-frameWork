@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::table('warga', function (Blueprint $table) {
+            if (!Schema::hasColumn('warga', 'agama')) {
+                $table->string('agama')->nullable()->after('jenis_kelamin');
+            }
+            if (!Schema::hasColumn('warga', 'pekerjaan')) {
+                $table->string('pekerjaan')->nullable()->after('agama');
+            }
+            if (!Schema::hasColumn('warga', 'telp')) {
+                $table->string('telp')->nullable()->after('pekerjaan');
+            }
+            if (!Schema::hasColumn('warga', 'email')) {
+                $table->string('email')->nullable()->after('telp');
+            }
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('warga', function (Blueprint $table) {
+            $table->dropColumn(['agama', 'pekerjaan', 'telp', 'email']);
+        });
+    }
+};

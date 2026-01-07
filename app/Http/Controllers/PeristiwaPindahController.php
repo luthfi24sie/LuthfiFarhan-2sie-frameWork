@@ -8,11 +8,55 @@ use Illuminate\Http\Request;
 
 class PeristiwaPindahController extends Controller
 {
-    public function index()
+   public function index(Request $request)
     {
-        $pindah = PeristiwaPindah::with('warga')->paginate(20);
+        $query = PeristiwaPindah::with('warga');
+
+        // 🔍 FILTER NAMA WARGA
+        if ($request->filled('nama')) {
+            $query->whereHas('warga', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->nama . '%');
+            });
+        }
+
+        // 📄 FILTER NO SURAT
+        if ($request->filled('no_surat')) {
+            $query->where('no_surat', 'like', '%' . $request->no_surat . '%');
+        }
+
+        $pindah = $query->latest()
+                        ->paginate(20)
+                        ->withQueryString();
+
         return view('admin.peristiwa_pindah.index', compact('pindah'));
     }
+
+    public function edit($id)
+    {
+        $data = PeristiwaPindah::findOrFail($id);
+        $warga = Warga::orderBy('nama')->get();
+
+        return view('admin.peristiwa_pindah.edit', compact('data', 'warga'));
+    }
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'warga_id'     => 'required',
+        'tgl_pindah'   => 'required',
+        'alamat_tujuan'=> 'required',
+        'alasan'       => 'nullable|string',
+        'no_surat'     => 'nullable|string',
+    ]);
+
+    $data = PeristiwaPindah::findOrFail($id);
+    $data->update($request->all());
+
+    return redirect()
+        ->route('peristiwa_pindah.index')
+        ->with('success', 'Data pindah berhasil diperbarui.');
+}
+
 
 
     public function create()

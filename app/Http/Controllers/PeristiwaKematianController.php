@@ -8,11 +8,38 @@ use Illuminate\Http\Request;
 
 class PeristiwaKematianController extends Controller
 {
-    public function index()
+   public function index(Request $request)
     {
-        $data = PeristiwaKematian::with('warga')->paginate(20);
+        $query = PeristiwaKematian::with('warga');
+
+        // 🔍 FILTER NAMA WARGA
+        if ($request->filled('nama')) {
+            $query->whereHas('warga', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->nama . '%');
+            });
+        }
+
+        // ⚠️ FILTER SEBAB KEMATIAN
+        if ($request->filled('sebab')) {
+            $query->where('sebab', 'like', '%' . $request->sebab . '%');
+        }
+
+        // 📅 FILTER TANGGAL MENINGGAL (RANGE)
+        if ($request->filled('tgl_dari')) {
+            $query->whereDate('tgl_meninggal', '>=', $request->tgl_dari);
+        }
+
+        if ($request->filled('tgl_sampai')) {
+            $query->whereDate('tgl_meninggal', '<=', $request->tgl_sampai);
+        }
+
+        $data = $query->latest()
+                    ->paginate(20)
+                    ->withQueryString();
+
         return view('admin.peristiwa_kematian.index', compact('data'));
     }
+
 
     public function create()
     {

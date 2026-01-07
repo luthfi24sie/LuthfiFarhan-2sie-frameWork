@@ -2,63 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Warga;
+use App\Models\Keluarga_kk;
+use App\Models\AnggotaKeluarga;
+use App\Models\Media;
+use App\Models\PeristiwaKelahiran;
+use App\Models\PeristiwaKematian;
+use App\Models\PeristiwaPindah;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('admin.dashboard');
-    }
+        return view('admin.dashboard', [
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+            // ================= TOTAL =================
+            'totalWarga'      => Warga::count(),
+            'totalKK'         => Keluarga_kk::count(),
+            'totalAnggota'    => AnggotaKeluarga::count(),
+            'totalMedia'      => Media::count(),
+            'totalKelahiran'  => PeristiwaKelahiran::count(),
+            'totalKematian'   => PeristiwaKematian::count(),
+            'totalPindah'     => PeristiwaPindah::count(),
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            // ================= LATEST DATA =================
+            'latestWarga' => Warga::latest()
+                ->take(5)
+                ->get(),
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+            'latestKK' => Keluarga_kk::with('kepalaKeluarga')
+                ->latest()
+                ->take(5)
+                ->get(),
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+            'latestAnggota' => AnggotaKeluarga::with(['warga', 'kk'])
+                ->latest()
+                ->take(5)
+                ->get(),
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+            'latestMedia' => Media::latest()
+                ->take(5)
+                ->get(),
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            'latestKelahiran' => PeristiwaKelahiran::with('warga')
+                ->latest()
+                ->take(5)
+                ->get(),
+
+            'latestKematian' => PeristiwaKematian::with('warga')
+                ->latest()
+                ->take(5)
+                ->get(),
+
+            'latestPindah' => PeristiwaPindah::with('warga')
+                ->latest()
+                ->take(5)
+                ->get(),
+        ]);
     }
 }

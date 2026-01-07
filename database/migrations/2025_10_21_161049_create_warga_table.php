@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('warga')) {
+            return;
+        }
         Schema::create('warga', function (Blueprint $table) {
             $table->id(); // Ganti menjadi id() saja
             $table->string('no_ktp')->unique();

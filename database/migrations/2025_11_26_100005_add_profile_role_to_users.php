@@ -9,8 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('profile_photo')->nullable()->after('password');
-            $table->string('role', 20)->default('guest')->after('profile_photo');
+            if (!Schema::hasColumn('users', 'profile_photo')) {
+                $table->string('profile_photo')->nullable()->after('password');
+            }
+            if (!Schema::hasColumn('users', 'role')) {
+                $table->string('role', 20)->default('guest')->after('profile_photo');
+            }
         });
     }
 
